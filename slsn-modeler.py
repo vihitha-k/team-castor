@@ -61,14 +61,14 @@ priors = redback.priors.get_priors(model=model)
 priors.update(redback.priors.get_priors(model=base_model))
 
 priors['p0'] = bilby.core.prior.Uniform(0.7, 30, 'p0', latex_label = r'$P_{0}~(\mathrm{ms})$')    # period of the neutron star
-priors['bp'] = bilby.core.prior.LogUniform(0.1, 10, 'bp', latex_label = r'$B_{p}~(10^{14}~\mathrm{G})$')   # magnetic field
-priors['mass_ns'] = bilby.core.prior.Uniform(1.5, 1.9, 'mass_ns', latex_label = r'$mass_ns~(M_\odot)$') # mass of the neutron star
+priors['bp'] = bilby.core.prior.LogUniform(0.1, 15, 'bp', latex_label = r'$B_{p}~(10^{14}~\mathrm{G})$')   # magnetic field
+priors['mass_ns'] = bilby.core.prior.Gaussian(mu=1.7, sigma=0.2, name='mass_ns', latex_label = r'$mass_ns~(M_\odot)$') # mass of the neutron star
 priors['theta_pb'] = bilby.core.prior.Uniform(0, 1.5707963267948966, 'theta_pb', latex_label = r'$theta_pb~(rads)$') # angle of dipole moment
 priors['mej'] = bilby.core.prior.Uniform(1e-1, 100, 'mej', latex_label = r'$M_{\mathrm{ej}}~(M_\odot)$') # ejecta mass
 priors['vej'] = bilby.core.prior.LogUniform(1e3, 1e5, 'vej', latex_label = r'$v_{\mathrm{ej}}~(\mathrm{km}/\mathrm{s})$')   # ejecta velocity
 priors['kappa'] = bilby.core.prior.Uniform(0.01, 0.34, 'kappa', latex_label = r'$\kappa~(\mathrm{cm}^{2}/\mathrm{g})$')   # optical opacity
 priors['kappa_gamma'] = bilby.core.prior.LogUniform(0.01, 0.5, 'kappa_gamma', latex_label = r'$\kappa_{\gamma}~(\mathrm{cm}^{2}/\mathrm{g})$')  # opacity of gamma rays
-priors['temperature_floor'] = bilby.core.prior.Uniform(3e3,3e5, name = 'temperature_floor', latex_label = r'$T_{\mathrm{floor}}~(\mathrm{K})$') # lowest possible temp
+priors['temperature_floor'] = bilby.core.prior.Uniform(3e3,1e4, name = 'temperature_floor', latex_label = r'$T_{\mathrm{floor}}~(\mathrm{K})$') # lowest possible temp
 priors['sigma'] = bilby.core.prior.Uniform(minimum = 0.001, maximum = 100, name = 'sigma', latex_label = r'σ')    # White noise parameter
 
 
