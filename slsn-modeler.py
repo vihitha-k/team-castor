@@ -80,7 +80,7 @@ def modelsn(sn, model_kwargs, likelihood_func):
     result = redback.fit_model(transient=sn, model=model, sampler=sampler, model_kwargs=model_kwargs, prior=priors, sample='rslice', nlive=nlive, resume=True, likelihood=likelihood_func, clean=True, plot=False)
     return result
 
-<<<<<<< HEAD
+
 for i in range(len(index)):
     id = index.iloc[i]['ZTFID']
     data = formData(id)
@@ -102,28 +102,4 @@ for i in range(len(index)):
     resultData = result.posterior()
     finalResult = []
     finalResult.append(resultData)
-=======
-
-
-id = index.iloc[0]['ZTFID']
-data = formData(id)
-
-# update these in for loop
-priors['redshift'] = index.iloc[0]['redshift']
-priors['t0'] = bilby.core.prior.Uniform(minimum = data['MJD'].values.min() - 200, maximum = data['MJD'].values.min() - 1, name = 't0', latex_label = r'$t_{\rm expl.}~\rm (day)$', unit = None, boundary = None)
-priors['av_host'] = index.iloc[0]['A_V']  #extinction
-
-sn = defNova(id, data)
-upd_priors = updPriors(sn)
-model_kwargs = upd_priors[0]
-likelihood_func = upd_priors[1]
-figure = plotData(sn)
-
-result = modelsn(sn, model_kwargs, likelihood_func)
-fig2=result.plot_multiband_lightcurve(show=True, random_models=100)
-resultData = result.posterior()
-print(resultData.head())
-plt.show()
->>>>>>> e9dbaa81118b684066799f83e9c29f2db9906ea3
-
 
