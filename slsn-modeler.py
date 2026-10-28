@@ -8,6 +8,7 @@ from redback.likelihoods import GaussianLikelihoodQuadratureNoise
 from redback import filters
 from antares_client.search import get_by_id, get_by_ztf_object_id
 import matplotlib.pyplot as plt
+from matplotlib.ticker import AutoMinorLocator
 import numpy as np
 import astropy.units as u
 import sncosmo
@@ -17,9 +18,34 @@ from astroquery.svo_fps import SvoFps
 
 # changing plot font
 rcParams['text.usetex'] = False
-# rcParams['font.family'] = ''
-# rcParams['mathtext.fontset'] = ''
-# rcParams.update({'font.size': 12, 'font.family': 'serif'})
+# rcParams['font.family'] = 'DejaVu Sans'
+# rcParams['mathtext.fontset'] = 'dejavusans'
+# rcParams.update({'font.size': 12, 'font.family': 'dejavusans'})
+rcParams.update({
+    'text.usetex': False,
+    'font.family': 'DejaVu Sans',
+    'mathtext.fontset': 'dejavusans',
+    'font.size': 12,
+    'axes.labelsize': 14,
+    'axes.titlesize': 15,
+    'xtick.labelsize': 11,
+    'ytick.labelsize': 11,
+    'xtick.minor.visible': True,
+    'ytick.minor.visible': True,
+    'xtick.minor.ndivs': 5,
+    'ytick.minor.ndivs': 5,
+
+    'xtick.direction': 'in',
+    'ytick.direction': 'in',
+    'xtick.major.size': 6,
+    'ytick.major.size': 6,
+    'xtick.minor.size': 3,
+    'ytick.minor.size': 3,
+    'legend.fontsize': 11,
+    'axes.linewidth': 1.2,
+    'figure.dpi': 120,
+    'savefig.dpi': 300,
+})
 
 # define index
 index = pd.read_csv(r"C:\Users\allen\Documents\PHYS323\SLSN-I Modeling\slsn_data.csv")
