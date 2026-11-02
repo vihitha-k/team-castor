@@ -49,6 +49,8 @@ rcParams.update({
 
 # define index
 index = pd.read_csv(r"C:\Users\allen\Documents\PHYS323\SLSN-I Modeling\slsn_data.csv")
+# define final result
+finalResult = pd.DataFrame(columns=['p0', 'bp', 'mass_ns', 'theta_pb', 'mej', 'vej', 'kappa', 'kappa_gamma', 'temperature_floor', 'sigma', 't0', 'redshift', 'av_host', 'log_likelihood', 'log_prior'])
 
 
 # define model and general priors
@@ -124,8 +126,9 @@ for i in range(len(index)):
 
     result = modelsn(sn, model_kwargs, likelihood_func)
     fig2=result.plot_multiband_lightcurve(show=False, random_models=100)
-    result.plot_corner(show_titles=True, title_quantiles = [0.16, 0.5, 0.84])
+    result.plot_corner(show_titles=True, title_quantiles = [0.16, 0.5, 0.84], filename=f"{id}_corner_plot.png", title_kwargs={'x': 0.65, 'y': 0.95})
     resultData = result.posterior()
-    finalResult = []
-    finalResult.append(resultData)
-
+    opt_post = resultData.mean().to_frame().T
+    finalResult = pd.concat([finalResult, opt_post])
+finalResult.plot_corner(show_titles=True, title_quantiles = [0.16, 0.5, 0.84], filename="aggregated_corner_plot.png", title_kwargs={'x': 0.65, 'y': 0.95})
+finalResult.to_csv('total_optimized_posterior.csv', index=False)
