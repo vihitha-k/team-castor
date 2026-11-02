@@ -109,7 +109,8 @@ def modelsn(sn, model_kwargs, likelihood_func):
     return result
 
 
-for i in range(len(index)):
+# for i in range(len(index)):
+for i in range(2):
     id = index.iloc[i]['ZTFID']
     data = formData(id)
     
@@ -127,7 +128,7 @@ for i in range(len(index)):
     result = modelsn(sn, model_kwargs, likelihood_func)
     fig2=result.plot_multiband_lightcurve(show=False, random_models=100)
     result.plot_corner(show_titles=True, title_quantiles = [0.16, 0.5, 0.84], filename=f"{id}_corner_plot.png", title_kwargs={'x': 0.65, 'y': 0.95})
-    resultData = result.posterior()
+    resultData = result.posterior
     opt_post = resultData.mean().to_frame().T
     finalResult = pd.concat([finalResult, opt_post])
 finalResult.plot_corner(show_titles=True, title_quantiles = [0.16, 0.5, 0.84], filename="aggregated_corner_plot.png", title_kwargs={'x': 0.65, 'y': 0.95})
