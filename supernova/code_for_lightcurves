@@ -1,0 +1,71 @@
+from pathlib import Path
+import redback
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.ticker import AutoMinorLocator
+
+
+# for every event: form data, define sn, plot data, update priors, model
+
+# changing plot font
+# rcParams['font.family'] = 'DejaVu Sans'
+# rcParams['mathtext.fontset'] = 'dejavusans'
+# rcParams.update({'font.size': 12, 'font.family': 'dejavusans'})
+plt.rcParams.update({
+    'text.usetex': False,
+    'font.family': 'DejaVu Sans',
+    'mathtext.fontset': 'dejavusans',
+    'font.size': 12,
+    'axes.labelsize': 14,
+    'axes.titlesize': 15,
+    'xtick.labelsize': 11,
+    'ytick.labelsize': 11,
+    'xtick.minor.visible': True,
+    'ytick.minor.visible': True,
+    'xtick.minor.ndivs': 5,
+    'ytick.minor.ndivs': 5,
+
+    'xtick.direction': 'in',
+    'ytick.direction': 'in',
+    'xtick.major.size': 6,
+    'ytick.major.size': 6,
+    'xtick.minor.size': 3,
+    'ytick.minor.size': 3,
+    'legend.fontsize': 11,
+    'axes.linewidth': 1.2,
+    'figure.dpi': 120,
+    'savefig.dpi': 300,
+})
+
+# Find the JSON next to this Python script.
+filepath = Path(__file__).parent / "SN2020jhm_result.json"
+
+result = redback.result.read_in_result(filename=str(filepath))
+
+ax = result.plot_lightcurve(
+    show=False,
+    save=False,
+    uncertainty_mode="credible_intervals",
+    credible_interval_level=0.68,
+    random_models=100,
+    band_colors={"ztfg": "forestgreen", "ztfr": "firebrick"},
+)
+
+fig = ax.get_figure()
+fig.set_size_inches(7, 5)
+
+ax.set_title("SN2020jhm", fontsize=14)
+ax.xaxis.label.set_size(12)
+ax.yaxis.label.set_size(12)
+
+ax.xaxis.set_minor_locator(AutoMinorLocator(6))
+ax.yaxis.set_minor_locator(AutoMinorLocator(6))
+ax.tick_params(which="major", direction="in", length=6,
+               top=True, right=True, labelsize=10)
+ax.tick_params(which="minor", direction="in", length=3,
+               top=True, right=True)
+ax.legend(loc="upper right", frameon=False, fontsize=10)
+
+output = Path.home() / "SN2020jhm_overlay.png"
+fig.savefig(output, dpi=300, bbox_inches="tight")
+print(f"Saved plot to: {output}")
